@@ -15,6 +15,7 @@ import strength2 from "@/assets/icons/Strength2.png";
 import speed2 from "@/assets/icons/Speed2.png";
 import explosive2 from "@/assets/icons/Explosive2.png";
 
+import menu from "@/assets/icons/menu.png"
 export default {
   donateIcon,
   workOutIcon,
@@ -29,5 +30,7 @@ export default {
   power2,
   strength2,
   speed2,
-  explosive2
+  explosive2,
+
+  menu
 };

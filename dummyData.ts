@@ -256,102 +256,208 @@ export interface EventType {
 interface Workout {
   day: string;
   category: string;
-  exercises: string[];
+  exercises: Exercises[];
   complete?: boolean; // Optional property
+  date: string
+}
+
+interface Exercises {
+  name: string;
+  sets: number;
+  reps: number;
+  status: boolean
 }
 
 interface AthleteWorkouts {
   athleteId: string;
   workouts: Workout[];
+  
 }
 
 export const weeklyWorkouts: AthleteWorkouts[] = [
-    {
-      athleteId: "athlete1",
-      workouts: [
-        {
-          day: "Monday",
-          category: "strength",
-          exercises: ["Backsquat", "Bench press", "Deadlift", "Overhead press", "Pull-up"],
-          complete: true
-        },
-        {
-          day: "Tuesday",
-          category: "power",
-          exercises: ["Clean", "Snatch", "Push press", "Kettlebell swing", "Box jump"],
-          complete: true
-        },
-        {
-          day: "Wednesday",
-          category: "explosive",
-          exercises: ["Medball slam", "Broad jump", "Vertical jump", "Plyo push-up", "Bounding"],
-          complete: true
-        },
-        {
-          day: "Thursday",
-          category: "speed",
-          exercises: ["Ten yard dash", "Forty yard dash", "Ladder drill", "Shuttle run", "Sprint starts"],
-          complete: false
-        },
-        {
-          day: "Friday",
-          category: "strength",
-          exercises: ["Front squat", "Incline bench press", "Barbell row", "Bulgarian split squat", "Chin-up"],
-          complete: false
-        },
-        {
-          day: "Saturday",
-          category: "power",
-          exercises: ["Hang clean", "Push jerk", "Medicine ball throw", "Landmine press", "Power pull"],
-          complete: false
-        },
-        {
-          day: "Sunday",
-          category: "explosive",
-          exercises: ["Depth jump", "Lateral bounds", "Seated box jump", "Overhead slam", "Reverse lunge jumps"],
-          complete: false
-        },
-      ],
-    },
-    {
-      athleteId: "athlete2",
-      workouts: [
-        {
-          day: "Monday",
-          category: "power",
-          exercises: ["Push press", "Hang clean", "Snatch", "Medicine ball slam", "Jump squat"],
-        },
-        {
-          day: "Tuesday",
-          category: "explosive",
-          exercises: ["Vertical jump", "Broad jump", "Bounding", "Medball chest throw", "Plyometric step-ups"],
-        },
-        {
-          day: "Wednesday",
-          category: "speed",
-          exercises: ["Ladder drills", "Sprint starts", "Flying sprints", "Shuttle run", "Quick feet drill"],
-        },
-        {
-          day: "Thursday",
-          category: "strength",
-          exercises: ["Trap bar deadlift", "Front squat", "Barbell curl", "Chest-supported row", "Face pull"],
-        },
-        {
-          day: "Friday",
-          category: "power",
-          exercises: ["Power clean", "Power snatch", "Overhead press", "Landmine press", "Weighted jump rope"],
-        },
-        {
-          day: "Saturday",
-          category: "explosive",
-          exercises: ["Single-leg bounding", "Kneeling box jump", "Triple jump", "Overhead slam", "Ballistic push-ups"],
-        },
-        {
-          day: "Sunday",
-          category: "speed",
-          exercises: ["Sprint intervals", "Reaction drills", "Cone drills", "Quick backpedals", "Short sprints"],
-        },
-      ],
-    },
-  ];
-  
+  {
+    athleteId: "athlete1",
+    workouts: [
+      {
+        day: "Monday",
+        category: "strength",
+        exercises: [
+          { name: "Backsquat", sets: 4, reps: 6, status: true },
+          { name: "Bench press", sets: 4, reps: 6, status: true },
+          { name: "Deadlift", sets: 4, reps: 6, status: true },
+          { name: "Overhead press", sets: 4, reps: 6, status: true },
+          { name: "Pull-up", sets: 4, reps: 6, status: true }
+        ],
+        complete: true,
+        date: "2025-02-03 14:30:45"
+      },
+      {
+        day: "Tuesday",
+        category: "power",
+        exercises: [
+          { name: "Clean", sets: 4, reps: 6, status: true },
+          { name: "Snatch", sets: 4, reps: 6, status: true },
+          { name: "Push press", sets: 4, reps: 6, status: true },
+          { name: "Kettlebell swing", sets: 4, reps: 12, status: true },
+          { name: "Box jump", sets: 4, reps: 6, status: true }
+        ],
+        complete: true,
+        date: "2025-02-04 14:30:45"
+      },
+      {
+        day: "Wednesday",
+        category: "explosive",
+        exercises: [
+          { name: "Medball slam", sets: 4, reps: 10, status: true },
+          { name: "Broad jump", sets: 4, reps: 6, status: true },
+          { name: "Vertical jump", sets: 4, reps: 6, status: true },
+          { name: "Plyo push-up", sets: 4, reps: 8, status: true },
+          { name: "Bounding", sets: 4, reps: 10, status: true }
+        ],
+        complete: true,
+        date: "2025-02-05 14:30:45"
+      },
+      {
+        day: "Thursday",
+        category: "speed",
+        exercises: [
+          { name: "Ten yard dash", sets: 6, reps: 10, status: false },
+          { name: "Forty yard dash", sets: 4, reps: 4, status: false },
+          { name: "Ladder drill", sets: 4, reps: 15, status: false },
+          { name: "Shuttle run", sets: 5, reps: 10, status: false },
+          { name: "Sprint starts", sets: 4, reps: 5, status: false }
+        ],
+        complete: false,
+        date: "2025-02-06 14:30:45"
+      },
+      {
+        day: "Friday",
+        category: "strength",
+        exercises: [
+          { name: "Front squat", sets: 4, reps: 6, status: false },
+          { name: "Incline bench press", sets: 4, reps: 6, status: false },
+          { name: "Barbell row", sets: 4, reps: 6, status: false },
+          { name: "Bulgarian split squat", sets: 4, reps: 8, status: false },
+          { name: "Chin-up", sets: 4, reps: 6, status: false }
+        ],
+        complete: false,
+        date: "2025-02-07 14:30:45"
+      },
+      {
+        day: "Saturday",
+        category: "rest",
+        exercises: [
+          { name: "Hang clean", sets: 4, reps: 6, status: false },
+          { name: "Push jerk", sets: 4, reps: 6, status: false },
+          { name: "Medicine ball throw", sets: 4, reps: 10, status: false },
+          { name: "Landmine press", sets: 4, reps: 6, status: false },
+          { name: "Power pull", sets: 4, reps: 6, status: false }
+        ],
+        complete: false,
+        date: "2025-02-08 14:30:45"
+      },
+      {
+        day: "Sunday",
+        category: "explosive",
+        exercises: [
+          { name: "Depth jump", sets: 4, reps: 6, status: false },
+          { name: "Lateral bounds", sets: 4, reps: 10, status: false },
+          { name: "Seated box jump", sets: 4, reps: 6, status: false },
+          { name: "Overhead slam", sets: 4, reps: 6, status: false },
+          { name: "Reverse lunge jumps", sets: 4, reps: 6, status: false }
+        ],
+        complete: false,
+        date: "2025-02-09 14:30:45"
+      },
+    ],
+  },
+  {
+    athleteId: "athlete2",
+    workouts: [
+      {
+        day: "Monday",
+        category: "power",
+        exercises: [
+          { name: "Push press", sets: 4, reps: 6, status: true },
+          { name: "Hang clean", sets: 4, reps: 6, status: true },
+          { name: "Snatch", sets: 4, reps: 6, status: true },
+          { name: "Medicine ball slam", sets: 4, reps: 10, status: true },
+          { name: "Jump squat", sets: 4, reps: 6, status: true }
+        ],
+        date: "2025-02-03 14:00:00"
+      },
+      {
+        day: "Tuesday",
+        category: "explosive",
+        exercises: [
+          { name: "Vertical jump", sets: 4, reps: 6, status: true },
+          { name: "Broad jump", sets: 4, reps: 6, status: true },
+          { name: "Bounding", sets: 4, reps: 10, status: true },
+          { name: "Medball chest throw", sets: 4, reps: 6, status: true },
+          { name: "Plyometric step-ups", sets: 4, reps: 6, status: true }
+        ],
+        date: "2025-02-04 14:00:00"
+      },
+      {
+        day: "Wednesday",
+        category: "speed",
+        exercises: [
+          { name: "Ladder drills", sets: 4, reps: 15, status: true },
+          { name: "Sprint starts", sets: 4, reps: 6, status: true },
+          { name: "Flying sprints", sets: 4, reps: 10, status: true },
+          { name: "Shuttle run", sets: 5, reps: 10, status: true },
+          { name: "Quick feet drill", sets: 4, reps: 20, status: true }
+        ],
+        date: "2025-02-05 14:00:00"
+      },
+      {
+        day: "Thursday",
+        category: "strength",
+        exercises: [
+          { name: "Trap bar deadlift", sets: 4, reps: 6, status: true },
+          { name: "Front squat", sets: 4, reps: 6, status: true },
+          { name: "Barbell curl", sets: 4, reps: 8, status: true },
+          { name: "Chest-supported row", sets: 4, reps: 6, status: true },
+          { name: "Face pull", sets: 4, reps: 10, status: true }
+        ],
+        date: "2025-02-06 14:00:00"
+      },
+      {
+        day: "Friday",
+        category: "power",
+        exercises: [
+          { name: "Power clean", sets: 4, reps: 6, status: true },
+          { name: "Power snatch", sets: 4, reps: 6, status: true },
+          { name: "Overhead press", sets: 4, reps: 6, status: true },
+          { name: "Landmine press", sets: 4, reps: 6, status: true },
+          { name: "Weighted jump rope", sets: 4, reps: 50, status: true }
+        ],
+        date: "2025-02-07 14:00:00"
+      },
+      {
+        day: "Saturday",
+        category: "explosive",
+        exercises: [
+          { name: "Single-leg bounding", sets: 4, reps: 10, status: true },
+          { name: "Kneeling box jump", sets: 4, reps: 6, status: true },
+          { name: "Triple jump", sets: 4, reps: 6, status: true },
+          { name: "Overhead slam", sets: 4, reps: 6, status: true },
+          { name: "Ballistic push-ups", sets: 4, reps: 8, status: true }
+        ],
+        date: "2025-02-08 14:00:00"
+      },
+      {
+        day: "Sunday",
+        category: "speed",
+        exercises: [
+          { name: "Sprint intervals", sets: 5, reps: 10, status: false },
+          { name: "Reaction drills", sets: 4, reps: 8, status: false },
+          { name: "Cone drills", sets: 3, reps: 12, status: false },
+          { name: "Quick backpedals", sets: 4, reps: 10, status: false },
+          { name: "Short sprints", sets: 6, reps: 6, status: false }
+        ],
+        date: "2025-02-09 14:00:00"
+      },
+    ],
+  },
+];

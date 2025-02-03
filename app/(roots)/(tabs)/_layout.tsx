@@ -4,9 +4,8 @@ import { Image, ImageSourcePropType, Text, View } from "react-native";
 import icons from "@/constants/icons";
 // shows everything from tabs folder
 
-const TabIcon = ({ focused, icon, title} : {focused: boolean; 
-  icon: any; title: string}) => (
-    <View className="flex-1 mt-3 flex flex-col items-center">
+const TabIcon = ({ focused, icon, title}: {focused: boolean; icon: any; title: string}) => (
+  <View className="flex-1 mt-3 flex flex-col items-center">
     <Image
       source={icon}
       tintColor={focused ? "#1e90ff" : "white"}
@@ -28,18 +27,17 @@ const TabIcon = ({ focused, icon, title} : {focused: boolean;
 const TabsLayout = () => {
   return (
     <Tabs
-        screenOptions={{
-            tabBarShowLabel: false,
-            tabBarStyle: {
-                backgroundColor: 'black',
-                position: 'absolute',
-                borderTopColor: "#0061FF1A",
-               
-                minHeight: 70
-            }
-        }}
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: 'black',
+          position: 'absolute',
+          borderTopColor: "#0061FF1A",
+          minHeight: 70,
+        }
+      }}
     >
-    <Tabs.Screen
+      <Tabs.Screen
         name="index"
         options={{
           title: "Dashboard",
@@ -48,8 +46,8 @@ const TabsLayout = () => {
             <TabIcon focused={focused} icon={icons.home} title="Dashboard" />
           ),
         }}
-    />
-     <Tabs.Screen
+      />
+      <Tabs.Screen
         name="fundraising"
         options={{
           title: "Fundraising",
@@ -58,8 +56,8 @@ const TabsLayout = () => {
             <TabIcon focused={focused} icon={icons.donateIcon} title="Fundraising" />
           ),
         }}
-    />
-     <Tabs.Screen
+      />
+      <Tabs.Screen
         name="workout"
         options={{
           title: "Workout",
@@ -68,9 +66,11 @@ const TabsLayout = () => {
             <TabIcon focused={focused} icon={icons.dumbell} title="Workout" />
           ),
         }}
-    />
-    </Tabs>
-  )
-}
+      />
 
-export default TabsLayout
+   
+    </Tabs>
+  );
+};
+
+export default TabsLayout;

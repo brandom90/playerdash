@@ -6,12 +6,14 @@ import {  events } from '../../../dummyData';
 import Leaderboard from '@/components/Leaderboard';
 import ProgressBars from '@/components/ProgressBars';
 import Improvements from '@/components/Improvements';
+import WorkoutList from '@/app/(roots)/WorkoutList';
 
 export default function Index() {
   const placeholder = [""]
   const params = useLocalSearchParams<{ query?: string; filter?: string}>();
   const handleEventPress = (id: string) => router.push(`./specEvent/${id}`)
 
+  const handleWorkoutPagePress = () => router.push(`./WorkoutList/`)
   return (
     <SafeAreaView style={{ flex: 1}} className="bg-black">
       {/* top bar of the site that is just added with my say so*/}
@@ -53,7 +55,12 @@ export default function Index() {
 
               </View>
             </View>
-
+            
+            <View className="shadow-md shadow-zinc-600 rounded-xl   mt-3 h-auto">
+              <TouchableOpacity  onPress={() => handleWorkoutPagePress()} style={{ flex: 1, marginHorizontal: 0, height: 70,backgroundColor: "#1e90ff", justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
+                <Text style={{ color: 'white' }} className='font-rubik-bold text-[18px]'>Go to your workouts</Text>
+              </TouchableOpacity>
+            </View>
             
 
             <View className="bg-[#3a4046] shadow-md shadow-zinc-600 rounded-xl w-full py-5 mt-3 h-auto">

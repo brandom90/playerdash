@@ -4,7 +4,7 @@ import { weeklyWorkouts } from '../../../dummyData';
 import ProgressBars from '@/components/ProgressBars';
 import NoResults from '@/components/NoResults';
 import images from "@/constants/images";
-import AnalyticsWorkout from '@/components/AnalyticsWorkout';
+
 
 interface Workout {
   day: string;
@@ -59,7 +59,7 @@ const WorkoutScreen = () => {
               />
 
               <View className='flex justify-center items-center'>
-                <AnalyticsWorkout />
+                
               </View>
             </View>
           </View>
