@@ -1,4 +1,4 @@
-import { View, Text, Animated, TouchableOpacity, } from 'react-native';
+import { View, Text, Animated, TouchableOpacity, Modal, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform, } from 'react-native';
 import React, { useState, useEffect, useRef} from 'react';
 import Svg, { Circle, Text as SvgText } from 'react-native-svg'; // Import necessary components
 import { FontAwesome } from '@expo/vector-icons'; // Import an icon library
@@ -8,9 +8,10 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface ProgressBarsProps {
   amount: number;
+  color: string
 }
 
-const ProgressBars: React.FC<ProgressBarsProps> = ({ amount }) => {
+const ProgressBars: React.FC<ProgressBarsProps> = ({ amount, color }) => {
   const [athleticProgress, setAthleticProgress] = useState(0); // State to hold the progress percentage
   const [gameProgress, setGameProgress] = useState(0);
   const [practiceProgress, setPracticeProgress] = useState(0);
@@ -90,165 +91,167 @@ const ProgressBars: React.FC<ProgressBarsProps> = ({ amount }) => {
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg'],
   });
-
-
+  
+  return (
+    <KeyboardAvoidingView
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // For iOS use 'padding', for Android use 'height'
+    style={{ flex: 1 }}
+  >
+    <View>
+      {amount === 3 ? (
+        <>
+          <View className="flex-row justify-between items-center px-3 my-2">
+            <Text className="font-rubik-bold text-[22px] ml-2" style={{ color: color === 'blue' ? 'white' : 'black' }}>Progress</Text>
+  
+            <View className='flex flex-row items-center ml-auto mr-3'>
+              <Text className="font-rubik-bold text-[14px] mr-3" style={{ color: color === 'blue' ? 'white' : 'black' }}>{showThisWeek ? "This Week" : "Last Week"}</Text>
+              <TouchableOpacity onPress={handleWidthChange}>
+                <Animated.View style={{ transform: [{ rotate: spin }] }}>
+                  <FontAwesome name="refresh" size={24} style={{ color: color === 'blue' ? '#1e90ff' : 'black' }}/>
+                </Animated.View>
+              </TouchableOpacity>
+            </View>
+          </View>
 
   
-
-
-  return (
-    <View>
-      { amount === 3 ? (
-          <><View className="flex-row justify-between items-center px-3 my-2">
-          <Text className="font-rubik-bold text-[22px] ml-2 color-white">Progress</Text>
-
-          <View className='flex flex-row items-center ml-auto mr-3'>
-            <Text className="font-rubik-bold text-[14px] mr-3 color-white">{showThisWeek ? "This Week" : "Last Week"}</Text>
-            <TouchableOpacity onPress={handleWidthChange}>
-              <Animated.View style={{ transform: [{ rotate: spin }] }}>
-                <FontAwesome name="refresh" size={24} color='#1e90ff' />
-              </Animated.View>
-            </TouchableOpacity>
-          </View>
-        </View><View className="flex flex-row items-center ml-auto mr-auto">
-            <View className="flex flex-column items-center mr-10">
-              <Text className='color-white'>Athletics</Text>
-              <Svg width={120} height={120} viewBox="0 0 120 120">
-                <Circle
-                  cx="60"
-                  cy="60"
-                  r={radius}
-                  stroke="#e6e6e6" // Background circle color
-                  strokeWidth={strokeWidth}
-                  fill="none" />
-
-                <AnimatedCircle
-                  cx="60"
-                  cy="60"
-                  r={radius}
-                  stroke="#1e90ff" // Foreground circle color
-                  strokeWidth={strokeWidth}
-                  fill="none"
-                  strokeDasharray={circumference}
-                  strokeDashoffset={strokeDashoffsetAthletics} // Animates the stroke
-                  strokeLinecap="round" />
-
-                <SvgText
-                  x="55" // Center horizontally
-                  y="65" // Center vertically (adjust slightly for better alignment)
-                  textAnchor="middle" // Center the text
-                  fontSize="16" // Adjust size as needed
-                  fontWeight="bold" // Adjust style as needed
-                  fill="white" // Text color
-                >
-                  {athleticProgress}%
-                </SvgText>
-              </Svg>
-
-            </View>
+          <View className="flex flex-row items-center ml-auto mr-auto">
+            
+              <View className="flex flex-column items-center mr-10">
+                <Text style={{ color: color === 'blue' ? 'white' : 'black' }}>Athletics</Text>
+                <Svg width={120} height={120} viewBox="0 0 120 120">
+                  <Circle
+                    cx="60"
+                    cy="60"
+                    r={radius}
+                    stroke={ color === 'blue' ? '#e6e6e6' : 'black' }
+                    strokeWidth={strokeWidth}
+                    fill="none" />
+                  <AnimatedCircle
+                    cx="60"
+                    cy="60"
+                    r={radius}
+                    stroke={ color === 'blue' ? '#1e90ff' : '#C01010' }
+                    strokeWidth={strokeWidth}
+                    fill="none"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={strokeDashoffsetAthletics}
+                    strokeLinecap="round" />
+                  <SvgText
+                    x="55"
+                    y="65"
+                    textAnchor="middle"
+                    fontSize="16"
+                    fontWeight="bold"
+                    fill={ color === 'blue' ? 'white' : 'black' }
+                  >
+                    {athleticProgress}%
+                  </SvgText>
+                </Svg>
+              </View>
+  
             <View className="flex flex-column items-center">
-              <Text className='color-white'>Game</Text>
+              <Text style={{ color: color === 'blue' ? 'white' : 'black' }}>Game</Text>
               <Svg width={120} height={120} viewBox="0 0 120 120">
                 <Circle
                   cx="60"
                   cy="60"
                   r={radius}
-                  stroke="#e6e6e6" // Background circle color
+                  stroke={ color === 'blue' ? '#e6e6e6' : 'black' }
                   strokeWidth={strokeWidth}
                   fill="none" />
                 <AnimatedCircle
                   cx="60"
                   cy="60"
                   r={radius}
-                  stroke="#1e90ff" // Foreground circle color
+                  stroke={ color === 'blue' ? '#1e90ff' : '#C01010' }
                   strokeWidth={strokeWidth}
                   fill="none"
                   strokeDasharray={circumference}
-                  strokeDashoffset={strokeDashoffsetGame} // Animates the stroke
+                  strokeDashoffset={strokeDashoffsetGame}
                   strokeLinecap="round" />
-
                 <SvgText
-                  x="55" // Center horizontally
-                  y="65" // Center vertically (adjust slightly for better alignment)
-                  textAnchor="middle" // Center the text
-                  fontSize="16" // Adjust size as needed
-                  fontWeight="bold" // Adjust style as needed
-                  fill="white" // Text color
+                  x="55"
+                  y="65"
+                  textAnchor="middle"
+                  fontSize="16"
+                  fontWeight="bold"
+                  fill={ color === 'blue' ? 'white' : 'black' }
                 >
                   {gameProgress}%
                 </SvgText>
               </Svg>
             </View>
-          </View><View className="ml-5 mr-5 justify-center items-center">
-            <Text className='color-white'>Practice</Text>
+          </View>
+  
+          <View className="ml-5 mr-5 justify-center items-center">
+            <Text style={{ color: color === 'blue' ? 'white' : 'black' }}>Practice</Text>
             <Svg width={120} height={120} viewBox="0 0 120 120">
               <Circle
                 cx="60"
                 cy="60"
                 r={radius}
-                stroke="#fff" // Background circle color
+                stroke={ color === 'blue' ? '#e6e6e6' : 'black' }
                 strokeWidth={strokeWidth}
                 fill="none" />
               <AnimatedCircle
                 cx="60"
                 cy="60"
                 r={radius}
-                stroke="#1e90ff" // Foreground circle color
+                stroke={ color === 'blue' ? '#1e90ff' : '#C01010' }
                 strokeWidth={strokeWidth}
                 fill="none"
                 strokeDasharray={circumference}
-                strokeDashoffset={strokeDashoffsetPractice} // Animates the stroke
+                strokeDashoffset={strokeDashoffsetPractice}
                 strokeLinecap="round" />
-
               <SvgText
-                x="55" // Center horizontally
-                y="65" // Center vertically (adjust slightly for better alignment)
-                textAnchor="middle" // Center the text
-                fontSize="16" // Adjust size as needed
-                fontWeight="bold" // Adjust style as needed
-                fill="white" // Text color
+                x="55"
+                y="65"
+                textAnchor="middle"
+                fontSize="16"
+                fontWeight="bold"
+                fill={ color === 'blue' ? 'white' : 'black' }
               >
                 {practiceProgress}%
               </SvgText>
             </Svg>
-          </View></>
-
-      ): (
+          </View>
+        </>
+      ) : (
         <View className="ml-5 mr-5 justify-center items-center">
-          <Text className='mb-2 text-[20px] font-rubik-bold color-white' >Weekly Workout Progress</Text>
+          <Text className='mb-2 text-[20px] font-rubik-bold color-white'>Weekly Workout Progress</Text>
           <Svg width={120} height={120} viewBox="0 0 120 120">
-          <Circle
-            cx="60"
-            cy="60"
-            r={radius}
-            stroke="#fff" // Background circle color
-            strokeWidth={strokeWidth}
-            fill="none" />
-          <AnimatedCircle
-            cx="60"
-            cy="60"
-            r={radius}
-            stroke="#1e90ff" // Foreground circle color
-            strokeWidth={strokeWidth}
-            fill="none"
-            strokeDasharray={circumference}
-            strokeDashoffset={strokeDashoffsetPractice} // Animates the stroke
-            strokeLinecap="round" />
-
-          <SvgText
-            x="55" // Center horizontally
-            y="65" // Center vertically (adjust slightly for better alignment)
-            textAnchor="middle" // Center the text
-            fontSize="16" // Adjust size as needed
-            fontWeight="bold" // Adjust style as needed
-            fill="white" // Text color
-          >
-            {practiceProgress}%
-          </SvgText>
-        </Svg> 
-      </View>
-    )}  
+            <Circle
+              cx="60"
+              cy="60"
+              r={radius}
+              stroke="#fff"
+              strokeWidth={strokeWidth}
+              fill="none" />
+            <AnimatedCircle
+              cx="60"
+              cy="60"
+              r={radius}
+              stroke="#1e90ff"
+              strokeWidth={strokeWidth}
+              fill="none"
+              strokeDasharray={circumference}
+              strokeDashoffset={strokeDashoffsetPractice}
+              strokeLinecap="round" />
+            <SvgText
+              x="55"
+              y="65"
+              textAnchor="middle"
+              fontSize="16"
+              fontWeight="bold"
+              fill="white"
+            >
+              {practiceProgress}%
+            </SvgText>
+          </Svg>
+        </View>
+      )}
     </View>
+  </KeyboardAvoidingView>
   );
 };
 

@@ -1,8 +1,11 @@
-import {SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Stack } from "expo-router";
 import './global.css'
 import { useEffect } from "react";
 import { useFonts } from "expo-font"
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+// this is my entry file
 ////Sports icons created by Icongeek26 - Flaticon
 
 export default function RootLayout() {
@@ -25,6 +28,5 @@ export default function RootLayout() {
 
 
 
-
-  return  <Stack screenOptions={{ headerShown: false}}/>
+  return <Stack screenOptions={{ headerShown: false }} />
 }

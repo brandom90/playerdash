@@ -16,7 +16,7 @@ export interface EventType {
     prev: string;
   }
 
-
+// not used
   export const dummyLBData: LeaderboardType[] = [
     { id: 1, name: 'John Doe', position: 'QB', score: 'Score', prev: 'Prev' },
     { id: 2, name: 'Alex Smith', position: 'WR', score: 'Score', prev: 'Prev' },
@@ -35,6 +35,7 @@ export interface EventType {
       id: 'athlete1',
       name: 'Bob',
       position: 'QB',
+      school: "Pine View High School",
       performance: {
         strength: {
           backsquat: 315,
@@ -261,10 +262,16 @@ interface Workout {
   date: string
 }
 
+interface Sets {
+  setNum: number;
+  Completed: boolean;
+  reps: number;
+  weight: number;
+}
 interface Exercises {
   name: string;
-  sets: number;
-  reps: number;
+
+  sets: Sets[];
   status: boolean
 }
 
@@ -282,11 +289,36 @@ export const weeklyWorkouts: AthleteWorkouts[] = [
         day: "Monday",
         category: "strength",
         exercises: [
-          { name: "Backsquat", sets: 4, reps: 6, status: true },
-          { name: "Bench press", sets: 4, reps: 6, status: true },
-          { name: "Deadlift", sets: 4, reps: 6, status: true },
-          { name: "Overhead press", sets: 4, reps: 6, status: true },
-          { name: "Pull-up", sets: 4, reps: 6, status: true }
+          {
+            name: "Backsquat",
+            status: true,
+            sets: [
+              { setNum: 1, Completed: true, reps: 10, weight: 140 },
+              { setNum: 2, Completed: true, reps: 10, weight: 140 },
+              { setNum: 3, Completed: true, reps: 10, weight: 140 },
+              { setNum: 4, Completed: true, reps: 10, weight: 140 }
+            ]
+          },
+          {
+            name: "Bench press",
+            status: true,
+            sets: [
+              { setNum: 1, Completed: true, reps: 8, weight: 100 },
+              { setNum: 2, Completed: true, reps: 8, weight: 100 },
+              { setNum: 3, Completed: true, reps: 8, weight: 100 },
+              { setNum: 4, Completed: true, reps: 8, weight: 100 }
+            ]
+          },
+          {
+            name: "Deadlift",
+            status: true,
+            sets: [
+              { setNum: 1, Completed: true, reps: 5, weight: 160 },
+              { setNum: 2, Completed: true, reps: 5, weight: 160 },
+              { setNum: 3, Completed: true, reps: 5, weight: 160 },
+              { setNum: 4, Completed: true, reps: 5, weight: 160 }
+            ]
+          }
         ],
         complete: true,
         date: "2025-02-03 14:30:45"
@@ -295,169 +327,147 @@ export const weeklyWorkouts: AthleteWorkouts[] = [
         day: "Tuesday",
         category: "power",
         exercises: [
-          { name: "Clean", sets: 4, reps: 6, status: true },
-          { name: "Snatch", sets: 4, reps: 6, status: true },
-          { name: "Push press", sets: 4, reps: 6, status: true },
-          { name: "Kettlebell swing", sets: 4, reps: 12, status: true },
-          { name: "Box jump", sets: 4, reps: 6, status: true }
+          {
+            name: "Clean",
+            status: true,
+            sets: [
+              { setNum: 1, Completed: true, reps: 5, weight: 120 },
+              { setNum: 2, Completed: true, reps: 5, weight: 120 },
+              { setNum: 3, Completed: true, reps: 5, weight: 120 }
+            ]
+          },
+          {
+            name: "Snatch",
+            status: false,
+            sets: [
+              { setNum: 1, Completed: true, reps: 5, weight: 100 },
+              { setNum: 2, Completed: true, reps: 5, weight: 100 },
+              { setNum: 3, Completed: true, reps: 5, weight: 100 },
+              { setNum: 4, Completed: true, reps: 5, weight: 100 }
+            ]
+          }
         ],
-        complete: true,
+        complete: false,
         date: "2025-02-04 14:30:45"
-      },
-      {
-        day: "Wednesday",
-        category: "explosive",
-        exercises: [
-          { name: "Medball slam", sets: 4, reps: 10, status: true },
-          { name: "Broad jump", sets: 4, reps: 6, status: true },
-          { name: "Vertical jump", sets: 4, reps: 6, status: true },
-          { name: "Plyo push-up", sets: 4, reps: 8, status: true },
-          { name: "Bounding", sets: 4, reps: 10, status: true }
-        ],
-        complete: true,
-        date: "2025-02-05 14:30:45"
-      },
-      {
-        day: "Thursday",
-        category: "speed",
-        exercises: [
-          { name: "Ten yard dash", sets: 6, reps: 10, status: false },
-          { name: "Forty yard dash", sets: 4, reps: 4, status: false },
-          { name: "Ladder drill", sets: 4, reps: 15, status: false },
-          { name: "Shuttle run", sets: 5, reps: 10, status: false },
-          { name: "Sprint starts", sets: 4, reps: 5, status: false }
-        ],
-        complete: false,
-        date: "2025-02-06 14:30:45"
-      },
-      {
-        day: "Friday",
-        category: "strength",
-        exercises: [
-          { name: "Front squat", sets: 4, reps: 6, status: false },
-          { name: "Incline bench press", sets: 4, reps: 6, status: false },
-          { name: "Barbell row", sets: 4, reps: 6, status: false },
-          { name: "Bulgarian split squat", sets: 4, reps: 8, status: false },
-          { name: "Chin-up", sets: 4, reps: 6, status: false }
-        ],
-        complete: false,
-        date: "2025-02-07 14:30:45"
-      },
-      {
-        day: "Saturday",
-        category: "rest",
-        exercises: [
-          { name: "Hang clean", sets: 4, reps: 6, status: false },
-          { name: "Push jerk", sets: 4, reps: 6, status: false },
-          { name: "Medicine ball throw", sets: 4, reps: 10, status: false },
-          { name: "Landmine press", sets: 4, reps: 6, status: false },
-          { name: "Power pull", sets: 4, reps: 6, status: false }
-        ],
-        complete: false,
-        date: "2025-02-08 14:30:45"
-      },
-      {
-        day: "Sunday",
-        category: "explosive",
-        exercises: [
-          { name: "Depth jump", sets: 4, reps: 6, status: false },
-          { name: "Lateral bounds", sets: 4, reps: 10, status: false },
-          { name: "Seated box jump", sets: 4, reps: 6, status: false },
-          { name: "Overhead slam", sets: 4, reps: 6, status: false },
-          { name: "Reverse lunge jumps", sets: 4, reps: 6, status: false }
-        ],
-        complete: false,
-        date: "2025-02-09 14:30:45"
-      },
-    ],
+      }
+    ]
+  }
+];
+
+// ACCOUNCEMENTS FROM THE COACHES
+
+type Player = {
+  id: string;
+  status: boolean
+};
+
+type Announcement = {
+  id: number;
+  coach: string;
+  message: string;
+  date: string;
+  recipients: Player[];
+};
+
+export const announcements: Announcement[] = [
+  {
+    id: 1,
+    coach: "Coach Johnson",
+    message: "Practice is rescheduled to 5 PM tomorrow. Be on time!",
+    date: "2025-02-28T10:30:00Z",
+    recipients: [
+      { id: "athlete1",status: false },
+      { id: "athlete2",  status: true },
+   
+    ]
   },
   {
-    athleteId: "athlete2",
-    workouts: [
-      {
-        day: "Monday",
-        category: "power",
-        exercises: [
-          { name: "Push press", sets: 4, reps: 6, status: true },
-          { name: "Hang clean", sets: 4, reps: 6, status: true },
-          { name: "Snatch", sets: 4, reps: 6, status: true },
-          { name: "Medicine ball slam", sets: 4, reps: 10, status: true },
-          { name: "Jump squat", sets: 4, reps: 6, status: true }
-        ],
-        date: "2025-02-03 14:00:00"
-      },
-      {
-        day: "Tuesday",
-        category: "explosive",
-        exercises: [
-          { name: "Vertical jump", sets: 4, reps: 6, status: true },
-          { name: "Broad jump", sets: 4, reps: 6, status: true },
-          { name: "Bounding", sets: 4, reps: 10, status: true },
-          { name: "Medball chest throw", sets: 4, reps: 6, status: true },
-          { name: "Plyometric step-ups", sets: 4, reps: 6, status: true }
-        ],
-        date: "2025-02-04 14:00:00"
-      },
-      {
-        day: "Wednesday",
-        category: "speed",
-        exercises: [
-          { name: "Ladder drills", sets: 4, reps: 15, status: true },
-          { name: "Sprint starts", sets: 4, reps: 6, status: true },
-          { name: "Flying sprints", sets: 4, reps: 10, status: true },
-          { name: "Shuttle run", sets: 5, reps: 10, status: true },
-          { name: "Quick feet drill", sets: 4, reps: 20, status: true }
-        ],
-        date: "2025-02-05 14:00:00"
-      },
-      {
-        day: "Thursday",
-        category: "strength",
-        exercises: [
-          { name: "Trap bar deadlift", sets: 4, reps: 6, status: true },
-          { name: "Front squat", sets: 4, reps: 6, status: true },
-          { name: "Barbell curl", sets: 4, reps: 8, status: true },
-          { name: "Chest-supported row", sets: 4, reps: 6, status: true },
-          { name: "Face pull", sets: 4, reps: 10, status: true }
-        ],
-        date: "2025-02-06 14:00:00"
-      },
-      {
-        day: "Friday",
-        category: "power",
-        exercises: [
-          { name: "Power clean", sets: 4, reps: 6, status: true },
-          { name: "Power snatch", sets: 4, reps: 6, status: true },
-          { name: "Overhead press", sets: 4, reps: 6, status: true },
-          { name: "Landmine press", sets: 4, reps: 6, status: true },
-          { name: "Weighted jump rope", sets: 4, reps: 50, status: true }
-        ],
-        date: "2025-02-07 14:00:00"
-      },
-      {
-        day: "Saturday",
-        category: "explosive",
-        exercises: [
-          { name: "Single-leg bounding", sets: 4, reps: 10, status: true },
-          { name: "Kneeling box jump", sets: 4, reps: 6, status: true },
-          { name: "Triple jump", sets: 4, reps: 6, status: true },
-          { name: "Overhead slam", sets: 4, reps: 6, status: true },
-          { name: "Ballistic push-ups", sets: 4, reps: 8, status: true }
-        ],
-        date: "2025-02-08 14:00:00"
-      },
-      {
-        day: "Sunday",
-        category: "speed",
-        exercises: [
-          { name: "Sprint intervals", sets: 5, reps: 10, status: false },
-          { name: "Reaction drills", sets: 4, reps: 8, status: false },
-          { name: "Cone drills", sets: 3, reps: 12, status: false },
-          { name: "Quick backpedals", sets: 4, reps: 10, status: false },
-          { name: "Short sprints", sets: 6, reps: 6, status: false }
-        ],
-        date: "2025-02-09 14:00:00"
-      },
-    ],
-  },
+    id: 2,
+    coach: "Coach Williams",
+    message: "Team meeting after the next game. Attendance is mandatory.",
+    date: "2025-02-29T12:00:00Z",
+    recipients: [
+      { id: "athlete1",  status: true },
+      { id: "athlete2",  status: true },
+  
+    ]
+  }
 ];
+
+
+type PersonalGoals = {
+  id: number;
+  athleteId: string;
+  category: string;
+  targetValue: number;
+  currentValue: number;
+  title: string;
+  unit?: string;
+  timestamp: string;
+};
+
+export const personalGoals: PersonalGoals[] = [
+  {
+    id: 1,
+    athleteId: 'athlete1',
+    category: "Athetics",
+    targetValue: 225,
+    currentValue: 135,
+    title: "Hit 225 PR Bench",
+    unit: 'lb',
+    timestamp: "2025-02-29T12:00:00Z",
+  },
+  {
+    id: 2,
+    athleteId: 'athlete1',
+    category: "Game",
+    targetValue: 225,
+    currentValue: 135,
+    title: "Get 3 touchdowns",
+    unit: 'touchdowns',
+    timestamp: "2025-02-29T12:00:00Z",
+  },
+  {
+    id: 3,
+    athleteId: 'athlete1',
+    category: "Practice",
+    targetValue: 3,
+    currentValue: 1,
+    title: "Attend 5 practices",
+    unit: 'practices',
+    timestamp: "2025-02-29T12:00:00Z",
+  }
+]
+
+type ReqStats = {
+  stat: string;
+  requiredValue: number
+};
+
+
+type Achivement = {
+  id: number;
+  athleteId: string;
+  name: string;
+  description: string;
+  category: string;
+  requiredStats: ReqStats[];
+  timestamp: string
+};
+
+export const achivements: Achivement[] = [
+  {
+    id: 1,
+    athleteId: 'athlete1',
+    name: '1000 Pound Club',
+    description: 'Achieve a combined total of 1000 lbs on Squat, Bench, and Deadlift',
+    category: 'lifting',
+    requiredStats: [
+      {
+        stat: 'Squat', 
+        requiredValue: 1000, 
+      }
+    ],
+    timestamp: '2025-02-29T12:00:00Z'
+  }
+]

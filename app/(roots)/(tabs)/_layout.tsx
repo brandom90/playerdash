@@ -8,15 +8,15 @@ const TabIcon = ({ focused, icon, title}: {focused: boolean; icon: any; title: s
   <View className="flex-1 mt-3 flex flex-col items-center">
     <Image
       source={icon}
-      tintColor={focused ? "#1e90ff" : "white"}
+      tintColor={focused ? "#C9A227" : "white"}
       resizeMode="contain"
       className="size-6"
     />
     <Text
       className={`${
         focused
-          ? "text-[#4A759A] font-rubik-medium"
-          : "text-black-200 font-rubik"
+          ? "text-[#C9A227] font-rubik-medium"
+          : "text-white font-rubik"
       } text-xs w-full text-center mt-1`}
     >
       {title}
@@ -32,7 +32,7 @@ const TabsLayout = () => {
         tabBarStyle: {
           backgroundColor: 'black',
           position: 'absolute',
-          borderTopColor: "#0061FF1A",
+          borderTopColor: "#fff",
           minHeight: 70,
         }
       }}
@@ -48,26 +48,35 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="fundraising"
+        name="WorkoutList"
         options={{
-          title: "Fundraising",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.donateIcon} title="Fundraising" />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="workout"
-        options={{
-          title: "Workout",
+          title: "Workouts",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} icon={icons.dumbell} title="Workout" />
           ),
         }}
       />
-
+       <Tabs.Screen
+        name="Documents"
+        options={{
+          title: "Docs",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} icon={icons.BookIcon} title="Docs" />
+          ),
+        }}
+      />
+       <Tabs.Screen
+        name="Profile"
+        options={{
+          title: "Profile",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} icon={icons.ProfileIcon} title="Profile" />
+          ),
+        }}
+      />
    
     </Tabs>
   );

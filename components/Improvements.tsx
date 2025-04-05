@@ -105,7 +105,7 @@ const Improvements = ({player}: { player: string }) => {
     setImprovementStats(improvementStatsTemp);
   }, [player]);
 
-  const handleCardPress = (id: string) => router.push(`./workout`)
+  const handleCardPress = (id: string) => router.push(`./WorkoutList`)
   
   return (
     <View>
