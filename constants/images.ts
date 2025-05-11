@@ -10,7 +10,7 @@ import noResult from "@/assets/images/no-result.png";
 
 import finishedWorkout from "@/assets/images/workoutFinishedBox.png";
 import workoutBox from "@/assets/images/workoutBox.png";
-
+import noImage from "@/assets/images/no-image.jpg";
 export default {
   finishedWorkout,
   workoutBox,
@@ -23,4 +23,5 @@ export default {
   whiteGradient,
   map,
   noResult,
+  noImage
 };

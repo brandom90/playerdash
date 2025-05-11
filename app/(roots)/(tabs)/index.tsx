@@ -91,7 +91,7 @@ export default function Index() {
       isPressed.value = false;
     });
 
-
+// all for notifications
   const [annoucementMessage, setAnnoucementMessage] = useState('')
   const [annoucementIndex, setAnnoucementIndex] = useState(0)
   const singleTap = (annoucement: string, key: number) => Gesture.Tap()
@@ -120,7 +120,6 @@ export default function Index() {
                 className="absolute  left-[auto] right-[auto] bg-[#001F3F] rounded-lg w-[95%] h-[auto] items-center z-50 p-5 flex-row justify-center items-center"
                 style={[{ top: `${key * 15}%` }, animatedStyles(key)]}  // Dynamic offset for each item
               > 
-                
                 <Image source={icons.WarningIcon} className="w-8 h-8 color-white" style={{ tintColor: 'white',resizeMode: 'contain' }} />
                   <View className='ml-5 w-[80%]'>
                     <Text className="text-white text-center font-rubik-bold text-[17px] ">

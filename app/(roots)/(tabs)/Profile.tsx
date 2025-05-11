@@ -6,7 +6,7 @@ import icons from "@/constants/icons"
 import images from "@/constants/images"
 import {  athletes } from '../../../dummyData';
 import { router } from 'expo-router'
-import { Goals, Settings } from '../profileTabs'
+import { AthleteInfo, EventsAll, Goals, Notes, Settings, Statistics } from '../profileTabs'
 
 
 
@@ -54,32 +54,32 @@ const navigation = useNavigation();
       case 'Achievements/Goals':
         return <Goals setOnProfile={setOnProfile}/>;
       case 'Events':
-      //  return <EventsAll />;
+         return <EventsAll setOnProfile={setOnProfile}/>;
       case 'Statistics':
-       // return <Statistics />;
+         return <Statistics setOnProfile={setOnProfile}/>;
       case 'Athlete Info':
-       // return <AthleteInfo />
+        return <AthleteInfo setOnProfile={setOnProfile}/>;
       case 'Notes':
-      //  return <Notes />
+        return <Notes setOnProfile={setOnProfile}/>;
     }
   };
   return (
     <SafeAreaView className='h-full bg-black'>
       <ScrollView 
         showsVerticalScrollIndicator={false}
-        contentContainerClassName='pb-32 px-7'
+        contentContainerClassName=' '
       >
         { onProfile ? (
           <>
-        <View className='flex flex-row items-center justify-between mt-5'>
+        <View className='flex flex-row items-center justify-between mt-5 px-7 '>
           <Text className="text-xl font-rubik-bold color-white">Profile</Text>
           <TouchableOpacity className="flex flex-row items-center justify-between py-3">
             <Image source={icons.BellIcon} className="size-7" style={{tintColor: 'white' }} />
           </TouchableOpacity>
         </View>
         
-        <View className='flex-row justify-center flex mt-5'>
-          <View className="flex flex-col items-center relative mt-5">
+        <View className='flex-row justify-center flex mt-5 '>
+          <View className="flex flex-col items-center relative mt-5 ">
             {/* 
               Fetch the URI from a link, like 
               source={{ uri: "https://example.com/image.jpg" }} 
@@ -107,7 +107,7 @@ const navigation = useNavigation();
           </View>
         </View>
         {/* List of Tabs for settings */}
-        <View className="flex flex-col mt-10 pt-5 border-t-2 border-b-2 pb-5 border-white bg-black">
+        <View className="flex flex-col mt-10 pt-5 border-t-2 border-b-2 pb-5 border-white bg-black px-7 ">
             <SettingsItem icon={icons.Achievementicon} title="Achievements/Goals"/>
             <SettingsItem icon={icons.DemographicIcon} title="Athlete Info"/>
             <SettingsItem icon={icons.StatsIcon} title="Statistics"/>
@@ -115,7 +115,7 @@ const navigation = useNavigation();
             <SettingsItem icon={icons.NotesIcon} title="Notes"/>
             <SettingsItem icon={icons.SettingIcon} title="Settings"/>
         </View>
-        <View className="flex flex-col border-t mt-0 pt-5 border-primary-200">
+        <View className="flex flex-col border-t mt-0 pt-5 border-primary-200 px-7 pb-32">
           <SettingsItem
             icon={icons.LogoutIcon}
             title="Logout"

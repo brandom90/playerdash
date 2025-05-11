@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const EventPage = () => {
   const { id } = useLocalSearchParams<{ id?: string }>();
 
-
+// for speciifc events
   return (
     <View>
       <SafeAreaView>

@@ -61,11 +61,11 @@ const Goals: React.FC<GoalsProps> = ({setOnProfile}) => {
             <Text className='text-[20px] font-rubik-bold '>No data</Text>
           </View>
         </View>
-       <View className='flex justify-center items-center p-5'>
-                <TouchableOpacity style={{elevation: 15, shadowColor: '#000',shadowOffset: { width: 0, height: 1 },shadowOpacity: 0.8,shadowRadius: 1,backgroundColor: '#C01010',borderRadius: 12,padding: 16,paddingLeft: 40,paddingRight: 40,}}onPress={() => setOnProfile(true)}>
-                  <Text className='color-black font-rubik-bold text-[17px]'>Return</Text>
-                </TouchableOpacity>
-              </View>
+       <View className='flex justify-center items-center p-5 mb-[70px]'>
+          <TouchableOpacity style={{elevation: 15, shadowColor: '#000',shadowOffset: { width: 0, height: 1 },shadowOpacity: 0.8,shadowRadius: 1,backgroundColor: '#C01010',borderRadius: 12,padding: 16,paddingLeft: 40,paddingRight: 40,}}onPress={() => setOnProfile(true)}>
+            <Text className='color-black font-rubik-bold text-[17px]'>Return</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       </ScrollView >
     </SafeAreaView>

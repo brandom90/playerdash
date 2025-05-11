@@ -33,9 +33,15 @@ export interface EventType {
   export const athletes = [
     {
       id: 'athlete1',
-      name: 'Bob',
-      position: 'QB',
+      name: 'Moe Bhility',
+      position: 'Quarter Back',
+      timestamp: '2025-02-03 14:30:45',
       school: "Pine View High School",
+      teamId: '5id9v93k',
+      Hometown: 'Saint George',
+      height: "6'3",
+      weight: 200,
+      GPA: 4.0,
       performance: {
         strength: {
           backsquat: 315,
@@ -61,7 +67,36 @@ export interface EventType {
         explosive: 8,
         speed: 6,
       },
-      improvedLastWeek:true
+      improvedLastWeek: true,
+      notes: [
+        {
+          title: "Lower Body Explosiveness",
+          content: "Needs to work on explosive movements in lower body",
+          timestamp: "2023-11-15T09:30:00Z"
+        },
+        {
+          title: "Bench Press Progress",
+          content: "Showing good progress in bench press technique",
+          timestamp: "2023-11-10T14:15:00Z"
+        },
+        {
+          title: "Bench Press Progress",
+          content: "Showing good progress in bench press technique",
+          timestamp: "2023-11-10T14:15:00Z"
+        },
+        {
+          title: "Bench Press Progress",
+          content: "Showing good progress in bench press technique",
+          timestamp: "2023-11-10T14:15:00Z"
+        },{
+          title: "Bench Press Progress",
+          content: "Showing good progress in bench press technique",
+          timestamp: "2023-11-10T14:15:00Z"
+        },
+      
+        
+        
+      ]
     },
   ]
 
@@ -471,3 +506,70 @@ export const achivements: Achivement[] = [
     timestamp: '2025-02-29T12:00:00Z'
   }
 ]
+
+type Event = {
+  id: string; // Unique Event ID
+  title: string; // 'Lifting', 'Team Meeting', 'Game'
+  location: string; // 'Weightroom', 'Field'
+  date: string;
+  time: string; // '6 am'
+  type: 'event' | 'practice' | 'game'; // Type of event
+  teamId?: string; // (Optional) The team this event belongs to
+  practiceId?: string; // (Optional) If it's a practice, link to a PracticePlan
+  notes?: string; // (Optional) Additional notes for the event
+};
+
+//MOST UP TO DATE EVENT STRUCURRE
+export const Event: Event[] = [
+  {
+    id: '1',
+    title: 'Lifting',
+    location: 'Weightroom',
+    date: '2025-04-20',
+    time: '6 am',
+    type: 'event',
+    notes: 'Bring your lifting shoes',
+    teamId: "5id9v93k",
+  },
+  {
+    id: '2',
+    title: 'Team Meeting',
+    location: 'Theater Room',
+    date: '2025-04-20',
+    time: '3 pm',
+    type: 'event',
+    notes: 'Discussing game strategy',
+    teamId: '5id9v93k',
+  },
+  {
+    id: '3',
+    title: 'Team Practice',
+    location: 'Field',
+    date: '2025-04-20',
+    time: '5 pm',
+    type: 'practice',
+    practiceId: 'practice1',
+    notes: 'Focus on defensive drills',
+    teamId: '5id9v93k',
+  },
+  {
+    id: '4',
+    title: 'Game vs Rivals',
+    location: 'Stadium',
+    date: '2025-04-20',
+    time: '7 pm',
+    type: 'game',
+    teamId: 'team1',
+    notes: 'Wear home jerseys',
+  },
+  {
+    id: '5',
+    title: 'Game vs Warriors',
+    location: 'Stadium',
+    date:'2025-04-20',
+    time: '7 pm',
+    type: 'game',
+    teamId: 'team2',
+    notes: 'Bring water bottles',
+  },
+];
