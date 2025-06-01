@@ -2,7 +2,7 @@ import { Link, router, useLocalSearchParams } from 'expo-router';
 import { Text, View, FlatList, SafeAreaView, Button, TouchableOpacity, StatusBar, Image, Modal, TextInput } from "react-native";
 import NoResults from "@/components/NoResults";
 import Events from '@/components/Events';
-import {  events, announcements } from '../../../dummyData';
+import {  Event, announcements, athletes,weeklyWorkouts } from '../../../dummyData';
 import Leaderboard from '@/components/Leaderboard';
 import ProgressBars from '@/components/ProgressBars';
 import Improvements from '@/components/Improvements';
@@ -39,6 +39,12 @@ export default function Index() {
     console.log("athlete1", getTodayDateFormatted(), dayOfWeek);
 
     router.push(`../workoutsSpecific/${"athlete1"}?date=${getTodayDateFormatted()}&day=${dayOfWeek}`);
+  };
+  
+  //This checks if The user has been in the dashboard when they clicked into EventsAll (I had to make this roundabout path because I didn't plan for Events)
+  //All page to be accessed from other ways
+  const handleEventsAllPagePress = () => {
+    router.push(`/profileTabs/EventsAll`);
   };
 
   const filteredAnnouncements = announcements.filter(announcement =>
@@ -107,12 +113,18 @@ export default function Index() {
       }
     })
     
- 
+ // placeholder to find the current logged in user, will change once I add auth (it'll be more like how we used Bundlr)
+  const currentUser = athletes.find(item => item.id == 'athlete1')
 
+  // Workout Category puller
+  const currentPlayerWorkoutSet = weeklyWorkouts.filter(item => item.athleteId == 'athlete1')
+
+  const EventAvailable = Event.filter(item => item.type == 'event')
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }} className="flex justify-center items-center bg-black">
         <StatusBar barStyle="light-content" backgroundColor="#000" />
+        {/* IN APP NOTIFICATION POPUPS*/}
         {filteredAnnouncements.map((item, key) => (
     
           <GestureDetector key={key} gesture={Gesture.Exclusive(gesture(key), singleTap(item.message, key))}>
@@ -142,18 +154,24 @@ export default function Index() {
           ListEmptyComponent={<NoResults />}
           ListHeaderComponent={
             <View className='bg-black mt-1 mb-5'>
-              <View className='mt-2 mr-auto ml-auto'>
-                <Text className='text-[20px] font-rubik-bold color-white'>Dashboard</Text>
+              <View className='mt-[20px] mr-auto '>
+                <Text className='text-[13px] font-rubik-bold color-white' style={{opacity:.4}}>Welcome, {currentUser?.name}</Text>
+                <Text className='text-[25px] font-rubik-semibold color-white' style={{marginTop:-5}}>Dashboard</Text>
               </View>
-              <View className="bg-[#3a4046] shadow-md shadow-zinc-600 rounded-xl w-full py-3 mt-3">
-                
-       
+              {/* First Divider */}
+              <View style={{borderRadius: 5, height:5, width: '100%', backgroundColor: '#3A3939', marginVertical:2}}/>
 
-                <Text className="font-rubik-bold text-[22px] ml-5 color-[white]">Upcoming Events</Text>
-                <View className="flex flex-col w-full  h-30">
-                  {events.length > 0 ? (
-                    <View style={{ flexDirection: "column", backgroundColor:'#3a4046' }}>
-                      {events.slice(0, 3).map((item, key) => (
+              <View className=" rounded-xl w-full mt-[2%] mb-[2%]">
+                <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',}}>
+                  <Text className="font-rubik-medium text-[17px]  color-[white]">Upcoming Events</Text>
+                  <TouchableOpacity onPress={() => { handleEventsAllPagePress(); }}>
+                    <Text className="font-rubik-medium text-[14px]  color-[#FFD700]" style={{opacity:.7}}>See All</Text>
+                  </TouchableOpacity>
+                </View>
+                <View className="flex flex-col w-full ">
+                  {EventAvailable.length > 0 ? (
+                    <View style={{ flexDirection: "column", marginBottom:'2%' }}>
+                      {Event.slice(0, 3).map((item, key) => (
                         item.type === "event" &&
                         <Events
                           key={item.id} // Ensure a unique key
@@ -163,34 +181,53 @@ export default function Index() {
                       ))}
                     </View>
                   ) : (
-                    <NoResults />
+                    <View className="flex items-center p-2">
+                      <Text style={{ fontFamily: 'Rubik-SemiBold', color: '#FFD700', fontSize: 16 }}>
+                        No Results
+                      </Text>
+                      <Text className="text-base text-black-100 mt-2">
+                        No events scheduled currently
+                      </Text>
+                    </View>
                   )}
                 </View>
               </View>
+               {/* Second Divider */}
+              <View style={{borderRadius: 5, height:5, width: '100%', backgroundColor: '#3A3939'}}/>
 
-              <View className="shadow-md shadow-zinc-600 rounded-xl   mt-3 h-auto">
-                <TouchableOpacity onPress={() => handleWorkoutPagePress()} style={{ flex: 1, marginHorizontal: 0, height: 70, backgroundColor: "#1e90ff", justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
-                  <Text style={{ color: 'white' }} className='font-rubik-bold text-[18px]'>Go to your workouts</Text>
-                </TouchableOpacity>
+              <View className=" rounded-xl h-auto"  style={{marginBottom:'5%', }}>
+                <Text style={{  marginTop:'3%',marginBottom:'3%', fontFamily: 'Rubik-SemiBold', color: 'white', fontSize: 17 }}>
+                  Today's Workout
+                </Text>
+                <View style={{ padding:15,flex: 1, height: 'auto', backgroundColor: "#333333", justifyContent: 'center',  borderRadius: 5 }}>
+                  <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between', marginTop:'-2%'}}>
+                    <Text style={{ fontFamily: 'Rubik-SemiBold', color: 'white', fontSize: 25,textAlign:'left' }}>
+                      {currentPlayerWorkoutSet[0].workouts[0].category}
+                    </Text>
+                    <Image source={icons.dumbell} style={{width:34, height:34, tintColor:'#FFD700', marginRight:10 }} />
+                  </View>
+                  <TouchableOpacity onPress={() => handleWorkoutPagePress()} style={{width:'50%',backgroundColor:'#FFD700', padding:10, borderRadius:5, marginTop:'2%'}}>
+                    <Text style={{ color: 'black', textAlign:'center' }} className='font-rubik-semibold text-[15px]'>Go to Workout</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
+              
+               {/* 3rd Divider */}
+              <View style={{borderRadius: 5, height:5, width: '100%', backgroundColor: '#3A3939'}}/>
 
-              <View className="bg-[#3a4046] shadow-md shadow-zinc-600 rounded-xl w-full py-5 mt-3 h-auto">
+              <View className=" rounded-xl w-full h-auto" style={{marginTop:'3%',}}>
                 <Leaderboard />
               </View>
-              <View className="bg-[#3a4046] shadow-md shadow-zinc-600 rounded-xl w-full py-5 mt-3 h-auto">
-                <ProgressBars amount={3} color={'blue'}/>
-              </View>
-              <View className="bg-[#3a4046] shadow-md shadow-zinc-600 rounded-xl w-full py-5 mt-3 h-auto">
+
+               {/* 4th Divider */}
+              <View style={{borderRadius: 5, height:5, width: '100%', backgroundColor: '#3A3939'}}/>
+
+              <View className="b w-full  h-auto mb-20" style={{marginTop:'3%',}}>
                 <Improvements player={"athlete2"} />
               </View>
 
-              <View className="bg-[#3a4046] shadow-md shadow-zinc-600 rounded-xl w-full py-5 mt-3 h-auto mb-20">
-                <View style={{ justifyContent: 'space-between', margin: 10,  }}>
-                  <Text className='font-rubik-bold text-[18px] text-center ml-auto mr-auto color-white'>Want to help your team? Donate!</Text>
-                  <TouchableOpacity style={{ flex: 1, marginHorizontal: 5, height: 50, backgroundColor: "#1e90ff", justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
-                    <Text style={{ color: 'white' }} className='font-rubik-bold text-[18px]'>Donate</Text>
-                  </TouchableOpacity>
-                </View>
+              
+                
               <Modal
                 animationType="slide" transparent={true} visible={annoucementVis} onRequestClose={() => setAnnoucementVis(false)}
               >
@@ -217,8 +254,7 @@ export default function Index() {
                       </View>
                     </View>
                   </View>
-                </Modal>
-              </View>     
+                </Modal>   
             </View>
 
           }

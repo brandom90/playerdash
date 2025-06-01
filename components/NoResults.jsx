@@ -8,7 +8,7 @@ const NoResults = () => {
     <View className="flex items-center my-5">
       <Image
         source={images.noResult}
-        className="w-11/12 h-40"
+        className="w-11/12 h-20"
         resizeMode="contain"
       />
       <Text className="text-2xl font-rubik-bold text-black-300 mt-5">

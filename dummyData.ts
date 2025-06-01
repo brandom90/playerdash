@@ -5,7 +5,8 @@ export interface EventType {
     day: string,
     year: string,
     time: string,
-    type: string
+    type: string,
+    id:number
   }
 
   export interface LeaderboardType {
@@ -234,58 +235,6 @@ export interface EventType {
     },
   ];
   
-  export const events = [
-    {
-      title: 'Lifting',
-      location: 'Weightroom',
-      month: 'Aug',
-      day: '24th',
-      year: '2024',
-      time: '6 am',
-      type: 'event',
-      id: 1
-    },
-    {
-      title: 'Team Meeting',
-      location: 'Theater Room',
-      month: 'Aug',
-      day: '24th',
-      year: '2024',
-      time: '3 pm',
-      type: 'event',
-      id: 2
-    },
-    {
-      title: 'Team Practice',
-      location: 'Field',
-      month: 'Aug',
-      day: '24th',
-      year: '2024',
-      time: '5 pm',
-      type: 'event',
-      id: 3
-    },
-    {
-      title: 'Game vs Rivals',
-      location: 'Stadium',
-      month: 'Aug',
-      day: '25th',
-      year: '2024',
-      time: '7 pm',
-      type: 'game',
-      id: 4
-    },
-    {
-      title: 'Game vs Warriors',
-      location: 'Stadium',
-      month: 'Sep',
-      day: '1st',
-      year: '2024',
-      time: '7 pm',
-      type: 'game',
-      id: 5
-    },
-  ];
 
   // WEEKLY WORKOUTS GIVEN BY COACHES TO PLAYERS - UP FOR CHANGE
 
@@ -322,7 +271,7 @@ export const weeklyWorkouts: AthleteWorkouts[] = [
     workouts: [
       {
         day: "Monday",
-        category: "strength",
+        category: "Leg Day",
         exercises: [
           {
             name: "Backsquat",
@@ -335,7 +284,7 @@ export const weeklyWorkouts: AthleteWorkouts[] = [
             ]
           },
           {
-            name: "Bench press",
+            name: "Lunges",
             status: true,
             sets: [
               { setNum: 1, Completed: true, reps: 8, weight: 100 },
@@ -507,7 +456,7 @@ export const achivements: Achivement[] = [
   }
 ]
 
-type Event = {
+export type EventProps = {
   id: string; // Unique Event ID
   title: string; // 'Lifting', 'Team Meeting', 'Game'
   location: string; // 'Weightroom', 'Field'
@@ -520,7 +469,7 @@ type Event = {
 };
 
 //MOST UP TO DATE EVENT STRUCURRE
-export const Event: Event[] = [
+export const Event: EventProps[] = [
   {
     id: '1',
     title: 'Lifting',
@@ -539,7 +488,7 @@ export const Event: Event[] = [
     time: '3 pm',
     type: 'event',
     notes: 'Discussing game strategy',
-    teamId: '5id9v93k',
+    teamId: '5id9v93k%',
   },
   {
     id: '3',
@@ -550,13 +499,13 @@ export const Event: Event[] = [
     type: 'practice',
     practiceId: 'practice1',
     notes: 'Focus on defensive drills',
-    teamId: '5id9v93k',
+    teamId: '5id9v93k%',
   },
   {
     id: '4',
     title: 'Game vs Rivals',
     location: 'Stadium',
-    date: '2025-04-20',
+    date: '2025-04-30',
     time: '7 pm',
     type: 'game',
     teamId: 'team1',

@@ -1,15 +1,16 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect } from 'react'
-import {  EventType } from '../dummyData.js';
+import {  EventProps } from '../dummyData.js';
+import icons from '@/constants/icons';
 
 
-interface EventsProps {
-  item: EventType; // the type of the item prop
+interface Eventz {
+  item: EventProps; // the type of the item prop
   onPress: () => void; // the type of the onPress handler
 }
 
 
-const Events = ({item: {title, location, month,day, year, time, type }, onPress} :EventsProps) => {
+const Events = ({item: {id,title, location,date,time,type,teamId,practiceId,notes }, onPress} :Eventz) => {
 
 
 
@@ -20,23 +21,22 @@ const Events = ({item: {title, location, month,day, year, time, type }, onPress}
   return (
     <View
       style={{
-        padding: 5,
-        paddingLeft: 10,
         borderRadius: 10,
-        margin: 7,
-        backgroundColor: '#cccfd3',
-        shadowColor: '#000', // Lighter shadow color
-        shadowOffset: { width: 0, height: 4 }, // Increased shadow offset
-        shadowOpacity: 0.5, // Increased shadow opacity
-        shadowRadius: 15, // Increased shadow radius
-        elevation: 10, // Increased elevation for Android
+        marginTop:10,
+        backgroundColor: '#333333',
+        flexDirection: 'row',
+         alignItems: 'center'
       }}
-    >
-      <TouchableOpacity onPress={onPress} className="flex flex-col items-start w-100 relative" >
-        <Text className='font-rubik-medium'>{title}</Text>
-        <Text className='font-rubik-light'>{month}-{day} {year}</Text>
-        <Text className='font-rubik-light'>Location: {location}</Text>
+    > 
+      <View style={{borderRadius: 5, height:'100%', width: '3%', backgroundColor: '#FFD700',  }}/>
+      <TouchableOpacity onPress={onPress} style={{flexDirection:'row', alignItems:'center', paddingVertical:10, flex:1}}>
+        <View style={{flex:1, marginLeft:'3%'}}>
+          <Text style={{ fontFamily: 'Rubik-Medium', color: 'white', fontSize: 16 }}>{title}</Text>
+          <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', opacity: 0.5, marginTop: -3 }}>{date}</Text>
+        </View>
+        <Image source={icons.RightArrowIcon} style={{width:24, height:24, tintColor:'#FFD700', marginRight:10 }} />
       </TouchableOpacity>
+      
     </View>
   )
 }

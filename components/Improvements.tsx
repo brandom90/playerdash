@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { performanceData, athletes } from '../dummyData';
-import NoResults from './NoResults';
 import icons from "@/constants/icons";
 import { router } from 'expo-router';
 
@@ -105,12 +104,15 @@ const Improvements = ({player}: { player: string }) => {
     setImprovementStats(improvementStatsTemp);
   }, [player]);
 
-  const handleCardPress = (id: string) => router.push(`./WorkoutList`)
+  //const handleCardPress = (id: string) => router.push(`./WorkoutList`)
   
   return (
     <View>
-       <Text className='font-rubik-bold text-[22px] ml-5 color-white'>Improvements</Text>
-        <View>
+      <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',}}>
+        <Text className='font-rubik-bold text-[17px] color-white'>Improvements</Text>
+        <Text className="font-rubik-medium text-[14px]  color-[#FFD700]" style={{opacity:.7}}>See All</Text>
+      </View>
+      <View>
         {improvementStats.length > 0 ? 
             improvementStats.map((exercise, key) => (
               <View key={key} style={{ marginVertical: 5, padding: 10, alignSelf: 'center', backgroundColor: '#cccfd3', borderRadius: 10, width: '90%', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 5 }}>
@@ -120,16 +122,16 @@ const Improvements = ({player}: { player: string }) => {
                 </View>
             ))
             :
-            <NoResults />
+            <View className="flex items-center p-2">
+              <Text style={{ fontFamily: 'Rubik-SemiBold', color: '#FFD700', fontSize: 16 }}>
+                No Results
+              </Text>
+              <Text className="text-base text-black-100 mt-2">
+                No Recent Improvements
+              </Text>
+            </View>
         }
         </View>
-
-        <TouchableOpacity onPress={() => handleCardPress(player)} style={{ backgroundColor:'#cccfd3', marginTop: 5, marginRight:'auto', marginLeft:'auto', height:50, width: '80%', flex: 1, marginHorizontal: 5,  borderColor:'black', borderWidth:2, justifyContent: 'center', alignItems: 'center', borderRadius: 30 }}>
-            <View className='flex flex-row items-center gap-2'>
-                <Image source={icons.dumbell} className="w-8 h-8 color-white" style={{ tintColor: 'black',resizeMode: 'contain' }} />
-                <Text style={{ color: 'black' }} className='font-rubik-medium '>Go To Current Workout</Text>
-            </View>
-        </TouchableOpacity>
     </View>
   )
 }

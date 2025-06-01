@@ -28,8 +28,7 @@ const Calendar = () => {
   const [filteredEventsList, setFilteredEventsList] = useState(
     Event.filter(item => item.teamId === currentUser?.teamId)
   )
-
-
+  
 
   const headerDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   useEffect(() => {
@@ -157,18 +156,18 @@ const Calendar = () => {
           {
             detailsPopup ? (
               <View style={styles.detailsSection}>
-                  {chosenDatesEvents.map((event, index) => (
-                    <View key={index} style={{ marginBottom: 8 }} className='rounded-xl bg-[#7DC9F3] p-2'>
-                      <Text className='font-rubik-bold color-black text-[25px]'>{event.title}</Text>
-                      <Text className='font-rubik-bold color-black border-b-2'>{event.notes}</Text>
-                      <Text className='font-rubik-bold color-black'>{event.location}</Text>
-                      <Text className='font-rubik-bold color-black'>{event.time}</Text>
-                    </View>
-                  ))}
+                {chosenDatesEvents.map((event, index) => (
+                  <View key={index} style={{ marginBottom: 8 }} className='rounded-xl bg-[#7DC9F3] p-2'>
+                    <Text className='font-rubik-bold color-white text-[25px]'>da</Text>
+                    <Text className='font-rubik-bold color-black border-b-2'>{event.notes}</Text>
+                    <Text className='font-rubik-bold color-black'>{event.location}</Text>
+                    <Text className='font-rubik-bold color-black'>{event.time}</Text>
+                  </View>
+                ))}
               </View>
             ) : (
               <View style={styles.noDateSelected}>
-                  <Text className='color-white text-[20px]'>Select an event for more details</Text>
+                <Text className='color-white text-[20px]'>Select an event for more details</Text>
               </View>
             )
           }
@@ -184,7 +183,7 @@ const styles = StyleSheet.create({
   },
   calendarContainer: {
     margin: 16,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     borderRadius: 10,
     padding: 16,
     shadowColor: '#000',
@@ -202,11 +201,11 @@ const styles = StyleSheet.create({
   monthTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#FFD700',
   },
   navButton: {
-    fontSize: 24,
-    color: '#4a90e2',
+    fontSize: 44,
+    color: '#FFD700',
     paddingHorizontal: 16,
   },
   dayHeader: {
@@ -214,14 +213,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: 'white',
     paddingBottom: 8,
   },
   dayHeaderText: {
     width: 32,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: '#666',
+    color: 'white',
   },
   calendarGrid: {
     flexDirection: 'row',
@@ -234,24 +233,26 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#f0f0f0',
+
+    borderColor: 'white',
+    borderBottomWidth:1
   },
   dayText: {
     fontSize: 16,
-    color: '#333',
+    color: 'white',
   },
   nonMonthDay: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#333',
+
   },
   nonMonthDayText: {
     color: '#ccc',
   },
   selectedDay: {
-    backgroundColor: '#4a90e2',
+    backgroundColor: '#FFD700',
   },
   selectedDayText: {
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
   },
   eventDay: {

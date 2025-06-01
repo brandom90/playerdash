@@ -42,25 +42,29 @@ const navigation = useNavigation();
   const filteredPlayerList = athletes.find(item =>  item.id === ("athlete1"))
   const [onProfile, setOnProfile] = useState(true)
   const handleTabClick = (name: string) => {
-    setOnProfile(false)
-    setOnTab(name)
+    if (name == "Events") {
+      router.push(`/profileTabs/EventsAll`);
+    }
   }
   const [onTab, setOnTab] = useState('Settings')
 
+  
+    /// get rid of them one by one like in line 46
   const renderTabComponent = () => {
     switch (onTab) {
       case 'Settings':
         return <Settings setOnProfile={setOnProfile}/>;
       case 'Achievements/Goals':
         return <Goals setOnProfile={setOnProfile}/>;
-      case 'Events':
-         return <EventsAll setOnProfile={setOnProfile}/>;
+     
       case 'Statistics':
          return <Statistics setOnProfile={setOnProfile}/>;
       case 'Athlete Info':
         return <AthleteInfo setOnProfile={setOnProfile}/>;
       case 'Notes':
         return <Notes setOnProfile={setOnProfile}/>;
+      default:
+        return null;
     }
   };
   return (
@@ -69,8 +73,7 @@ const navigation = useNavigation();
         showsVerticalScrollIndicator={false}
         contentContainerClassName=' '
       >
-        { onProfile ? (
-          <>
+
         <View className='flex flex-row items-center justify-between mt-5 px-7 '>
           <Text className="text-xl font-rubik-bold color-white">Profile</Text>
           <TouchableOpacity className="flex flex-row items-center justify-between py-3">
@@ -123,11 +126,7 @@ const navigation = useNavigation();
             showArrow={false}
           />
         </View>
-        </>
-        ) : (
-          renderTabComponent()
-        )
-        }
+      
       </ScrollView>
     </SafeAreaView>
   )
