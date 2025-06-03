@@ -121,29 +121,31 @@ export default function Index() {
 
   const EventAvailable = Event.filter(item => item.type == 'event')
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView style={{ flex: 1 }} className="flex justify-center items-center bg-black">
+    <GestureHandlerRootView style={{ }}>
+      <SafeAreaView style={{ }} className="flex justify-center p-7 bg-black">
         <StatusBar barStyle="light-content" backgroundColor="#000" />
         {/* IN APP NOTIFICATION POPUPS*/}
-        {filteredAnnouncements.map((item, key) => (
-    
-          <GestureDetector key={key} gesture={Gesture.Exclusive(gesture(key), singleTap(item.message, key))}>
-              <Animated.View
-                className="absolute  left-[auto] right-[auto] bg-[#001F3F] rounded-lg w-[95%] h-[auto] items-center z-50 p-5 flex-row justify-center items-center"
-                style={[{ top: `${key * 15}%` }, animatedStyles(key)]}  // Dynamic offset for each item
-              > 
-                <Image source={icons.WarningIcon} className="w-8 h-8 color-white" style={{ tintColor: 'white',resizeMode: 'contain' }} />
-                  <View className='ml-5 w-[80%]'>
-                    <Text className="text-white text-center font-rubik-bold text-[17px] ">
-                      {item.coach}
-                    </Text>
-                    <Text className="text-white text-center ">
-                      {item.message}
-                    </Text>
-                  </View>
-              </Animated.View>  
-            </GestureDetector>
-        ))}
+        <View style={{display:'flex', alignItems:'center'}}>
+          {filteredAnnouncements.map((item, key) => (
+      
+            <GestureDetector key={key} gesture={Gesture.Exclusive(gesture(key), singleTap(item.message, key))}>
+                <Animated.View
+                  className="absolute  left-[auto] right-[auto] bg-[#001F3F] rounded-lg w-[95%] h-[auto] items-center z-50 p-5 flex-row justify-center items-center"
+                  style={[{ top: `${key * 15}%` }, animatedStyles(key)]}  // Dynamic offset for each item
+                > 
+                  <Image source={icons.WarningIcon} className="w-8 h-8 color-white" style={{ tintColor: 'white',resizeMode: 'contain' }} />
+                    <View className='ml-5 w-[80%]'>
+                      <Text className="text-white text-center font-rubik-bold text-[17px] ">
+                        {item.coach}
+                      </Text>
+                      <Text className="text-white text-center ">
+                        {item.message}
+                      </Text>
+                    </View>
+                </Animated.View>  
+              </GestureDetector>
+          ))}
+        </View>
         <FlatList
           data={placeholder}
           renderItem={({ item }) => <Text>{item}</Text>}
@@ -153,8 +155,8 @@ export default function Index() {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={<NoResults />}
           ListHeaderComponent={
-            <View className='bg-black mt-1 mb-5'>
-              <View className='mt-[20px] mr-auto '>
+            <View className='bg-black mb-5'>
+              <View className='mr-auto '>
                 <Text className='text-[13px] font-rubik-bold color-white' style={{opacity:.4}}>Welcome, {currentUser?.name}</Text>
                 <Text className='text-[25px] font-rubik-semibold color-white' style={{marginTop:-5}}>Dashboard</Text>
               </View>

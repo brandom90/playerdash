@@ -1,136 +1,141 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { performanceData, athletes } from '../dummyData';
+import { performanceData, athletes, achivements } from '../dummyData';
 import icons from "@/constants/icons";
 import { router } from 'expo-router';
 
-type Performance = {
-    strength: { backsquat: number; bench: number; };
-    power: { clean: number; pushPress: number; };
-    explosive: { medballPush: number; broadJump: number; vertical: number; };
-    speed: { dash10yd: number; dash40yd: number; };
-  };
 
+ interface PerformanceMetrics {
+    strength: Record<string, number>;
+    power: Record<string, number>;
+    speed: Record<string, number>;
+    explosive: Record<string, number>;
+}
+
+interface PerformanceEntry {
+    athleteId: string;
+    performance: PerformanceMetrics;
+    // Add other relevant fields if they exist
+}
+
+interface Improvement {
+    exercise: string;
+    value: number;
+    category: keyof PerformanceMetrics;
+}
 
 const Improvements = ({player}: { player: string }) => {
   // <{ metric: { [key: string]: number } }[]>, 
   // metric is type for dictionary. Keys are type string, values are type number
-  const [improvementStats, setImprovementStats] = useState<{ metric: { [key: string]: string } }[]>([]);
+  const [improvementStats, setImprovementStats] = useState<Record<string, any>[]>([]);
 
-    // assuming practice is each week....
+  // assuming practice is each week....
   const getMostRecentPerformance = (athleteId: string) => {
     const athleteData = performanceData
       .filter(entry => entry.athleteId === athleteId)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  
+    //console.log(athleteData[0])
     return athleteData[0]; // Most recent performance data
   };
-
-  //: { [key: string]: string } added this to adhere to typescript
-  const units: { [key: string]: string } = {
-    "Backsquat": "lbs",
-    "Bench press": "lbs",
-    "Clean": "lbs",
-    "Push press": "lbs",
-    "Medball push": "lbs", 
-    "Broad jump": "ft",
-    "Vertical jump": "in",
-    "Ten yard dash": "seconds",
-    "Forty yard dash": "seconds",
-  };
-
-  
-  const getLastWeekPerformance = (athleteId: string) => {
-    const athleteData = performanceData
-      .filter(entry => entry.athleteId === athleteId)
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  
-    return athleteData[1]; // Most recent performance data
-  };
-  
-
-  useEffect(() => { 
-    const thisWeek = getMostRecentPerformance(player);
-    const lastWeek = getLastWeekPerformance(player);
-  
-    // made temp arrays to use my data so no async errors
-    const thisWeekStatsTemp: { metric: { [key: string]: number } }[] = [];
-    // Last week stats
-    const thisLastStatsTemp: { metric: { [key: string]: number } }[] = [];
-    const improvementStatsTemp: { metric: { [key: string]: string } }[] = [];
-
-    
-  // unkown means I know what im doing (risky)
-    const performance = thisWeek.performance as unknown as Performance;
-    for (let category in performance) {
-      const metrics = performance[category as keyof Performance];
-      for (let metric in metrics) {
-        thisWeekStatsTemp.push({ metric: { [metric]: metrics[metric as keyof typeof metrics] } });
-      }
-    }
-  
-    const performanceLastWeek = lastWeek.performance as unknown as Performance;
-    for (let category in performanceLastWeek) {
-      const metrics = performanceLastWeek[category as keyof Performance];
-      for (let metric in metrics) {
-        thisLastStatsTemp.push({ metric: { [metric]: metrics[metric as keyof typeof metrics] } });
-       
-      }
-    }
-  
-  for (let i = 0; i < thisWeekStatsTemp.length; i++) {
-  const metricKey = Object.keys(thisLastStatsTemp[i].metric)[0];
-  const unit = units[metricKey]; // Get the unit for the current metric
-
-  // Check if the improvement is positive or negative
-  if (thisWeekStatsTemp[i].metric[metricKey] > thisLastStatsTemp[i].metric[metricKey] && metricKey !== "Ten yard dash" && metricKey !== "Forty yard dash") {
-    const improvedBy = thisWeekStatsTemp[i].metric[metricKey] - thisLastStatsTemp[i].metric[metricKey];
-    const formattedImprovedBy = Math.abs(improvedBy).toFixed(2);
-    improvementStatsTemp.push({
-      metric: {
-        [metricKey]: `${formattedImprovedBy} ${unit}`, // Add the unit to the result
-      },
-    });
-  } else if (thisWeekStatsTemp[i].metric[metricKey] < thisLastStatsTemp[i].metric[metricKey]) {
-    const improvedBy = thisWeekStatsTemp[i].metric[metricKey] - thisLastStatsTemp[i].metric[metricKey];
-    const formattedImprovedBy = Math.abs(improvedBy).toFixed(2);
-    improvementStatsTemp.push({
-      metric: {
-        [metricKey]: `${formattedImprovedBy} ${unit}`, // Add the unit to the result
-      },
-    });
-  }
-}
-    setImprovementStats(improvementStatsTemp);
-  }, [player]);
-
   //const handleCardPress = (id: string) => router.push(`./WorkoutList`)
+  
+
+
+  useEffect(() => {
+     const RecentWeek = getMostRecentPerformance('athlete1');
+    const FilteredPerformanceData = performanceData.filter(entry => entry.athleteId === 'athlete1');
+    const ImprovedItems: Improvement[] = [];
+    
+    // Type-safe category configuration
+    const categories: {
+        name: keyof PerformanceMetrics;
+        data: Record<string, number>;
+        isImprovement: (oldVal: number, newVal: number) => boolean;
+    }[] = [
+        {
+            name: 'strength',
+            data: RecentWeek.performance.strength,
+            isImprovement: (oldVal, newVal) => newVal > oldVal
+        },
+        {
+            name: 'power',
+            data: RecentWeek.performance.power,
+            isImprovement: (oldVal, newVal) => newVal > oldVal
+        },
+        {
+            name: 'speed',
+            data: RecentWeek.performance.speed,
+            isImprovement: (oldVal, newVal) => newVal < oldVal // Lower times are better
+        },
+        {
+            name: 'explosive',
+            data: RecentWeek.performance.explosive,
+            isImprovement: (oldVal, newVal) => newVal > oldVal
+        }
+    ];
+
+    // Process each category
+    categories.forEach(({name, data, isImprovement}) => {
+        FilteredPerformanceData.forEach(entry => {
+            const performanceMetrics = entry.performance[name];
+            
+            Object.entries(performanceMetrics).forEach(([exercise, value]) => {
+                if (exercise in data && isImprovement(value, data[exercise])) {
+                    ImprovedItems.push({
+                        exercise,
+                        value: data[exercise],
+                        category: name
+                    });
+                }
+            });
+        });
+    });
+
+    console.log(ImprovedItems);
+    setImprovementStats(ImprovedItems)
+  }, [])
+
   
   return (
     <View>
       <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between',}}>
         <Text className='font-rubik-bold text-[17px] color-white'>Improvements</Text>
-        <Text className="font-rubik-medium text-[14px]  color-[#FFD700]" style={{opacity:.7}}>See All</Text>
+        <TouchableOpacity onPress={() => { router.push(`/profileTabs/Goals`); }}>
+          <Text className="font-rubik-medium text-[14px]  color-[#FFD700]" style={{opacity:.7}}>See All</Text>
+        </TouchableOpacity>
       </View>
       <View>
-        {improvementStats.length > 0 ? 
-            improvementStats.map((exercise, key) => (
-              <View key={key} style={{ marginVertical: 5, padding: 10, alignSelf: 'center', backgroundColor: '#cccfd3', borderRadius: 10, width: '90%', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 5 }}>
-                  <Text style={{ fontFamily: 'Rubik-Regular', color: 'black', textAlign: 'center' }}>
-                      You improved on the {Object.keys(exercise.metric)[0]} by {Object.values(exercise.metric)[0]}
-                  </Text>
-                </View>
-            ))
-            :
-            <View className="flex items-center p-2">
-              <Text style={{ fontFamily: 'Rubik-SemiBold', color: '#FFD700', fontSize: 16 }}>
-                No Results
-              </Text>
-              <Text className="text-base text-black-100 mt-2">
-                No Recent Improvements
-              </Text>
-            </View>
-        }
+        <View style={{flexDirection:'row', flexWrap:'wrap', justifyContent:'space-between', alignItems:'center'}}>
+          {improvementStats.length > 0 ? 
+              improvementStats.slice(0, 3).map((exercise, key) => (
+                <View key={key} style={{height:'80%', display:'flex', alignItems:'center',justifyContent:'center', marginTop:'5%',padding: 10, alignSelf: 'center', backgroundColor: '#333333', borderRadius: 10, width: '32%' }}>
+                    {exercise.category != "achivement" ?
+                    <Image source={icons.Dumbbells} style={{width:44, height:44, tintColor:'white',  alignSelf: 'center'}} />
+                    :
+                    <Image source={icons.Achievementicon} style={{width:44, height:34, tintColor:'white',  alignSelf: 'center'}} />
+                    }
+                    <Text style={{ fontFamily: 'Rubik-Regular', color: 'white', textAlign: 'center', width:'100%', fontSize:13}}>
+                        {exercise.exercise}
+                    </Text>
+                    <View style={{flexDirection:'row', display:'flex', alignItems:'center', justifyContent:'center'}}>
+                      <Text style={{ fontFamily: 'Rubik-Regular', color: '#FFD700', textAlign: 'center' }}>
+                          {exercise.value}
+                      </Text>
+                      <Image source={icons.LongArrow} style={{ transform: [{ rotate: '-90deg' }], width:20, height:14, tintColor:'#FFD700',  }} />
+                    </View>
+                  </View>
+              ))
+              :
+              <View className="flex items-center p-2">
+                <Text style={{ fontFamily: 'Rubik-SemiBold', color: '#FFD700', fontSize: 16 }}>
+                  No Results
+                </Text>
+                <Text className="text-base text-black-100 mt-2">
+                  No Recent Improvements
+                </Text>
+              </View>
+          }
+        </View>
         </View>
     </View>
   )

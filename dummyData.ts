@@ -101,7 +101,21 @@ export interface EventType {
     },
   ]
 
-  export const performanceData = [
+  //In TypeScript, Record<KeyType, ValueType> is a built-in utility type that creates a key-value pair object type (so this means, strength has an object with a bunch/one of key and value pairs)
+  interface PerformanceMetrics {
+  strength: Record<string, number>;
+  power: Record<string, number>;
+  explosive: Record<string, number>;
+  speed: Record<string, number>;
+}
+
+interface PerformanceEntry {
+  athleteId: string;
+  date: string;
+  performance: PerformanceMetrics;
+}
+
+  export const performanceData: PerformanceEntry[] = [
     // Athlete 1 (Bob) improved in speed
     {
       athleteId: "athlete1",
@@ -117,10 +131,10 @@ export interface EventType {
       athleteId: "athlete1",
       date: "2024-12-27",
       performance: {
-        strength: { "Backsquat": 315, "Bench press": 225 },
-        power: { "Clean": 205, "Push press": 185 },
-        explosive: { "Medball push": 30, "Broad jump": 9.5, "Vertical jump": 28 },
-        speed: { "Ten yard dash": 1.65, "Forty yard dash": 4.6 }, // Improvement here
+        strength: { "Backsquat": 325, "Bench press": 245 },
+        power: { "Clean": 215, "Push press": 185 },
+        explosive: { "Medball push": 30, "Broad jump": 10.5, "Vertical jump": 28 },
+        speed: { "Ten yard dash": 1.55, "Forty yard dash": 4.6 }, // Improvement here
       },
     },
   

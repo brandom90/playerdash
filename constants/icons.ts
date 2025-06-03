@@ -34,6 +34,8 @@ import NotesIcon from "@/assets/icons/notes.png"
 import BookIcon from "@/assets/icons/book.png"
 import LineChartIcon from "@/assets/icons/line-chart.png"
 import BarChartIcon from "@/assets/icons/bar-chart.png"
+import LongArrow from "@/assets/icons/long-arrow.png"
+import Dumbbells from "@/assets/icons/Dumbells.png"
 
 import MailIcon from "@/assets/icons/mail.png"
 import LockedIcon from "@/assets/icons/locked-computer.png"
@@ -41,7 +43,10 @@ import DayNightIcon from "@/assets/icons/day-and-night.png"
 import PlusIcon from "@/assets/icons/plus.png"
 import ThropyIcon from "@/assets/icons/thropy.png"
 import CalendarIcon from "@/assets/icons/calendar.png"
+
 export default {
+  LongArrow,
+  Dumbbells,
   LineChartIcon,
   BarChartIcon,
   CalendarIcon,
